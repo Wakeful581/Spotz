@@ -9,7 +9,7 @@
 <title>Spotz App</title>
 <script>try { document.documentElement.setAttribute("data-theme", localStorage.getItem("spotz:theme:v2") === "dark" ? "dark" : "light"); } catch (e) { document.documentElement.setAttribute("data-theme", "light"); }</script>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Outfit:wght@600;800&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Outfit:wght@600;800&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Outfit:wght@600;800&display=swap"></noscript>
 <style>
 /* Concepto: app móvil en una columna de hasta 480px. Barra superior, contenido con scroll, barra de 4 pestañas.
    El acceso es oscuro; el resto es claro con morado, como en los mockups de Spotz. */
@@ -2661,7 +2661,7 @@ function postCard(p, fresh) {
   const liked = p.likes.includes(m.id), rp = p.reposts.includes(m.id), sv = !!sp && m.saved.includes(sp.id);
   const fol = m.following.includes(u.id), saves = sp ? Object.values(S.users).filter(x => (x.saved || []).includes(sp.id)).length : 0;
   const alt = sp ? `Foto en ${sp.name}, publicada por ${u.username}` : `Foto publicada por ${u.username}`;
-  const photos = p.imgs.map((r, i) => `<img src="${esc(imgSrc(r))}" alt="${esc(alt)}"${i ? ' loading="lazy"' : ''}>`).join('');
+  const photos = p.imgs.map((r, i) => `<img src="${esc(imgSrc(r))}" alt="${esc(alt)}" loading="lazy" decoding="async">`).join('');
   const pr = propOfPost(p), pend = !!pr && pr.status === 'pending' && (mine || adm);
   const plusBtn = mine || fol ? '' : `<button type="button" class="fol-plus" data-act="follow" data-id="${u.id}" aria-label="Seguir a ${esc(u.username)}">${ic('plus', 12)}</button>`;
   const menuBtn = mine || adm ? `<button class="ib sm" data-act="post-menu" data-id="${p.id}" aria-label="Más opciones">${ic('more')}</button>` : '';
